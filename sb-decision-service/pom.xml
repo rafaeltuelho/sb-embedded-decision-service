@@ -38,6 +38,7 @@
   </dependencyManagement>
 
   <dependencies>
+    <!-- Spring -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -50,13 +51,12 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- For remote execution on KIE Server -->
+    <!-- Kie Platform -->
     <dependency>
       <groupId>org.kie.server</groupId>
       <artifactId>kie-server-client</artifactId>
       <!-- <version>${kie.version}</version> -->
     </dependency>
-    <!-- Drools dependencies. -->
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
@@ -69,6 +69,8 @@
       <groupId>org.kie</groupId>
       <artifactId>kie-spring</artifactId>
     </dependency>
+
+    <!-- Drools -->
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-core</artifactId>
@@ -77,6 +79,8 @@
       <groupId>org.drools</groupId>
       <artifactId>drools-compiler</artifactId>
     </dependency>
+
+    <!-- DMN -->
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-dmn-feel</artifactId>
@@ -96,6 +100,7 @@
       <version>4.13.1</version>
     </dependency>
 
+    <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -107,12 +112,6 @@
       <version>1.6.1</version>
     </dependency>
 
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>2.9.2</version>
-    </dependency>
-
     <!-- Jackson -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -120,7 +119,12 @@
       <version>2.12.3</version>
     </dependency>
 
-    <!-- Swagger UI -->
+    <!-- Swagger -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.2</version>
+    </dependency>
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>swagger-ui</artifactId>
