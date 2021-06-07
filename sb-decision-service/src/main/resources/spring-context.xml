@@ -7,13 +7,13 @@
   <!-- bean id="kiePostProcessor" class="org.kie.spring.KModuleBeanFactoryPostProcessor"/ -->
   <bean id="kiePostProcessor" class="org.kie.spring.annotations.KModuleAnnotationPostProcessor"/>
  
-  <!-- KieScanner BEGIN -->  
+  <!-- KieScanner (every 2min) -->
   <kie:import releaseId-ref="named-session" 
     enableScanner="true" 
     scannerInterval="120000"/>
     
   <kie:releaseId id="named-session" 
     groupId="com.redhat.demos" 
-    artifactId="decisions-showcase" 
+    artifactId="business-assets-kjar" 
     version="1.0.0-SNAPSHOT"/>
 </beans>

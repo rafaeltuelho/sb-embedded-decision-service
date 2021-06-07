@@ -2,12 +2,11 @@ package com.redhat.demos.model;
 
 import org.kie.dmn.feel.lang.FEELProperty;
 
-public class Driver {
+public class Person {
     private String name;
     private Integer age;
     private String state;
     private String city;
-    private Integer points;
 
     public String getName() {
         return this.name;
@@ -41,15 +40,6 @@ public class Driver {
         this.city = city;
     }
 
-    @FEELProperty("Points")
-    public Integer getPoints() {
-        return this.points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
-
     @Override
     public String toString() {
         return "{" +
@@ -57,7 +47,6 @@ public class Driver {
             ", age='" + age + "'" +
             ", state='" + state + "'" +
             ", city='" + city + "'" +
-            ", points='" + points + "'" +
             "}";
     }
 }

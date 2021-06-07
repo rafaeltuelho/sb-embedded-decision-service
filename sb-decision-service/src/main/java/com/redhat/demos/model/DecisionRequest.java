@@ -1,28 +1,19 @@
 package com.redhat.demos.model;
 
 public class DecisionRequest {
-    private Driver driver;
-    private Violation violation;
+    private Person person;
 
-    public Driver getDriver() {
-        return this.driver;
+    public Person getPerson() {
+        return this.person;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public Violation getViolation() {
-        return this.violation;
-    }
-
-    public void setViolation(Violation violation) {
-        this.violation = violation;
+    public void setDriver(Person person) {
+        this.person = person;
     }
 
     @Override
     public String toString() {
-        return "DecisionRequest [driver=" + driver + ", violation=" + violation + "]";
+        return "DecisionRequest [person=" + person + "]";
     }
 
 }

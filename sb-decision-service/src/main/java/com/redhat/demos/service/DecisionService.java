@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.redhat.demos.model.DecisionRequest;
 import com.redhat.demos.model.DecisionResponse;
-import com.redhat.demos.model.Fine;
 
 import org.kie.api.builder.KieScanner;
 import org.kie.api.cdi.KSession;
@@ -48,16 +47,14 @@ public class DecisionService {
         final DMNModel dmnModel = dmnRuntime.getModel(modelNamespace, modelName);
         final DMNContext dmnContext = dmnRuntime.newContext();
 
-        dmnContext.set("Driver", request.getDriver());
-        dmnContext.set("Violation", request.getViolation());
+        dmnContext.set("Person", request.getPerson());
 
         final DMNResult dmnResult = dmnRuntime.evaluateAll(dmnModel, dmnContext);
         return extractResult(dmnResult);
     }
 
     private DecisionResponse extractResult(final DMNResult dmnResult) {
-        final DMNDecisionResult driverSuspended = dmnResult.getDecisionResultByName("Should the driver be suspended?");
-        final DMNDecisionResult fine = dmnResult.getDecisionResultByName("Fine");
+        final DMNDecisionResult isAnAdult = dmnResult.getDecisionResultByName("is an Adult?");
         if(dmnResult.hasErrors()){
             final String errors = dmnResult.getMessages(DMNMessage.Severity.ERROR).stream()
                     .map(message -> message.toString())
@@ -65,8 +62,7 @@ public class DecisionService {
             throw new RuntimeException("DMN Error messages {" + errors + "}");
         }
 
-        DecisionResponse decisionResponse = new DecisionResponse(
-            Fine.valueOf((Map)fine.getResult()), String.valueOf(driverSuspended.getResult()));
+        DecisionResponse decisionResponse = new DecisionResponse((Boolean)isAnAdult.getResult());
 
         LOGGER.debug("DecisionResponse: " + decisionResponse);
         return decisionResponse;

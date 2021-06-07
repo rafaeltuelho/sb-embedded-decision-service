@@ -1,33 +1,32 @@
 package com.redhat.demos.model;
 
 public class DecisionResponse {
-    private Fine fine;
-    private String driverSuspended;
+    private Boolean adult;
 
-    public Fine getFine() {
-        return this.fine;
+    public DecisionResponse() {
     }
 
-    public void setFine(Fine fine) {
-        this.fine = fine;
+    public DecisionResponse(Boolean isAdult) {
+        this.adult = isAdult;
     }
 
-    public String getDriverSuspended() {
-        return this.driverSuspended;
+    public Boolean isAdult() {
+        return this.adult;
     }
 
-    public void setDriverSuspended(String driverSuspended) {
-        this.driverSuspended = driverSuspended;
+    public Boolean getAdult() {
+        return this.adult;
     }
 
-    public DecisionResponse(Fine fine, String driverSuspended) {
-        this.fine = fine;
-        this.driverSuspended = driverSuspended;
+    public void setAdult(Boolean adult) {
+        this.adult = adult;
     }
 
     @Override
     public String toString() {
-        return "DecisionResponse [driverSuspended=" + driverSuspended + ", fine=" + fine + "]";
+        return "{" +
+            " adult='" + isAdult() + "'" +
+            "}";
     }
 
 }

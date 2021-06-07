@@ -19,13 +19,9 @@ curl -X POST http://localhost:8090/api/v1/decisions/post \
 -H 'Content-Type: application/json' \
 -d '
 {
-    "driver": {
-        "points": 10
-    },
-    "violation": {
-        "type": "speed",
-        "speedLimit": 100,
-        "actualSpeed": 120
+    "person": {
+        "name": "Rafael",
+        "age": 37
     }
 }
 '
@@ -35,10 +31,6 @@ Example output:
 
 ```
 {
-    "fine": {
-        "points": 20,
-        "amount": 1000
-    },
-    "driverSuspended": "Yes"
+    "isAnAdult": "true"
 }
 ```
