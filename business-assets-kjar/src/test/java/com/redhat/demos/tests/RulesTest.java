@@ -26,9 +26,8 @@ public class RulesTest extends RulesBaseTest {
         assertEquals(4, fired);
         assertEquals(7, kSession.getFactCount());
 
-        // filter LocaDate facts from the WM
-        kSession.getFactHandles( f -> ( f instanceof LocalDate ) )
-            .stream().forEach(System.out::println);        
+        // retrieve LocaDate facts from the WM
+        getFactsFromKieSession(kSession, LocalDate.class).stream().forEach(System.out::println);      
 
         System.out.println("Fact Count: " + kSession.getFactCount());
         System.out.println("Fired Rules: " + fired);
@@ -49,9 +48,8 @@ public class RulesTest extends RulesBaseTest {
         assertEquals(2, fired);
         assertEquals(3, kSession.getFactCount());
 
-        // filter DecisionResponse fact from the WM
-        kSession.getFactHandles( f -> ( f instanceof DecisionResponse ) )
-            .stream().forEach(System.out::println);
+        // retrieve DecisionResponse fact from the WM
+        getFactsFromKieSession(kSession, DecisionResponse.class).stream().forEach(System.out::println);
 
         System.out.println("Fact Count: " + kSession.getFactCount());
         System.out.println("Fired Rules: " + fired);

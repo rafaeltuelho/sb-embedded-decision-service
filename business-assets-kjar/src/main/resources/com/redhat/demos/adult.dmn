@@ -26,47 +26,19 @@ false</dmn:allowedAnswers>
     <dmn:informationRequirement id="_31F3B9C1-946A-4F15-B078-EE47680F36C9">
       <dmn:requiredInput href="#_49C072E2-D25A-4AF3-99F6-3DE254353875"/>
     </dmn:informationRequirement>
-    <dmn:decisionTable id="_3CB8CABC-3D45-41F6-BA29-B740838339A3" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
-      <dmn:input id="_7673ABE3-4808-4027-B484-4A79E8C6D3BF">
-        <dmn:inputExpression id="_3FCD8CA8-3ECD-4938-B378-E5FE3363ECA8" typeRef="number">
-          <dmn:text>Person.age</dmn:text>
-        </dmn:inputExpression>
-      </dmn:input>
-      <dmn:output id="_D74FF192-4E6B-4081-BDD9-671AC7F167FC"/>
-      <dmn:annotation name="annotation-1"/>
-      <dmn:rule id="_1A1DB80D-169B-4E84-AB6B-D7BC76F21EFF">
-        <dmn:inputEntry id="_9232CE7E-DBDA-4CAD-8635-B64D1357B2CF">
-          <dmn:text>&gt;=18</dmn:text>
-        </dmn:inputEntry>
-        <dmn:outputEntry id="_DD1EA8A2-E80B-47A7-ADBC-2988F9E67E02">
-          <dmn:text>true</dmn:text>
-        </dmn:outputEntry>
-        <dmn:annotationEntry>
-          <dmn:text/>
-        </dmn:annotationEntry>
-      </dmn:rule>
-      <dmn:rule id="_1BC49FFB-4B7D-4613-98F9-33625517ECC4">
-        <dmn:inputEntry id="_B91F4868-5129-426B-8656-33239B96C6ED">
-          <dmn:text>&lt;18</dmn:text>
-        </dmn:inputEntry>
-        <dmn:outputEntry id="_B4D68C71-C122-4B69-AFBA-CB59A5EB2181">
-          <dmn:text>false</dmn:text>
-        </dmn:outputEntry>
-        <dmn:annotationEntry>
-          <dmn:text/>
-        </dmn:annotationEntry>
-      </dmn:rule>
-    </dmn:decisionTable>
+    <dmn:literalExpression id="_27E2C0C7-03B5-4D88-883C-07FAB9FE5D49">
+      <dmn:text>if Person.age &gt;= 18 then 
+   true 
+else 
+   false</dmn:text>
+    </dmn:literalExpression>
   </dmn:decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="_2A9DE93A-0688-4BC1-AD2F-2DD33CA763B2" name="DRG">
       <di:extension>
         <kie:ComponentsWidthsExtension>
-          <kie:ComponentWidths dmnElementRef="_3CB8CABC-3D45-41F6-BA29-B740838339A3">
-            <kie:width>50</kie:width>
-            <kie:width>100</kie:width>
-            <kie:width>100</kie:width>
-            <kie:width>100</kie:width>
+          <kie:ComponentWidths dmnElementRef="_27E2C0C7-03B5-4D88-883C-07FAB9FE5D49">
+            <kie:width>518</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
