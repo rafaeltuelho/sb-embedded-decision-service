@@ -28,7 +28,7 @@ public class DecisionService {
     @Autowired 
     private ApplicationContext applicationContext;
     
-    @KSession("dmn-session")
+    @KSession("stateful-session")
     private KieSession kieSession;
 
     @Value("${dmn.modelNamespace}")

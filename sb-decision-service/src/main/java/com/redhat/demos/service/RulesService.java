@@ -1,16 +1,24 @@
 package com.redhat.demos.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import com.redhat.demos.model.DecisionRequest;
+import com.redhat.demos.model.DecisionResponse;
+import com.redhat.demos.model.Person;
 
 import org.kie.api.builder.KieScanner;
 import org.kie.api.cdi.KReleaseId;
 import org.kie.api.cdi.KSession;
+import org.kie.api.command.Command;
+import org.kie.api.runtime.ExecutionResults;
 import org.kie.api.runtime.KieSession;
-
+import org.kie.api.runtime.ObjectFilter;
+import org.kie.api.runtime.StatelessKieSession;
+import org.kie.internal.command.CommandFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +31,11 @@ public class RulesService {
     @Autowired 
     private ApplicationContext applicationContext;
     
-    @KSession("stateful-session")
-    private KieSession kieSession;
+    // @KSession("stateful-session")
+    // private KieSession kieSession;
+
+    @KSession("stateless-session")
+    private StatelessKieSession kieSession;
 
     // @KSession("stateful-session")
     // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "1.0")
@@ -35,36 +46,27 @@ public class RulesService {
         releaseIdScanner.scanNow();        
     }
 
-    public List<Object> fireRules(DecisionRequest request) {
-        LOGGER.info("KieSession: " + kieSession.getIdentifier());
+    public DecisionResponse fireRules(DecisionRequest request) {
+        List<Command<?>> cmds = new ArrayList<>();
+        cmds.add(CommandFactory.newInsert(request.getPerson(), "person"));
+        cmds.add(CommandFactory.newFireAllRules("firedRules"));
+        cmds.add(CommandFactory.newGetObjects( (obj) -> obj instanceof DecisionResponse, "decisionFacts"));
 
-        kieSession.insert("go");
-
-        // final long executionStart = System.currentTimeMillis();
+        final long executionStart = System.currentTimeMillis();
         LOGGER.info("=================================== START {} ===================================", "DROOLS EXECUTION RULES");
-        final int rulesFired = kieSession.fireAllRules();
-        // LOGGER.info("end execution of {} rules, fired in {} ms", "Pre verification check", rulesFired, (System.currentTimeMillis() - executionStart));
+
+        ExecutionResults results = kieSession.execute(CommandFactory.newBatchExecution(cmds));
+
+        LOGGER.info("{} rules fired in {} ms", results.getValue("firedRules"), (System.currentTimeMillis() - executionStart));
         LOGGER.info("==================================== END {} ====================================", "DROOLS EXECUTION RULES");
-        List<Object> facts = this.extractFacts();
-        kieSession.dispose();
 
-        return facts;
+        DecisionResponse response = new DecisionResponse();
+        @SuppressWarnings("unchecked") // the kie api returns a List<Object> in this case
+        List<Object> decisionFacts = ((List<Object>)results.getValue("decisionFacts"));
+        if (!decisionFacts.isEmpty())
+            response = (DecisionResponse)decisionFacts.iterator().next();
+
+        return response;
     }
 
-    private List<Object> extractFacts() {
-        LOGGER.info("Obtaining all facts from KieSession");
-
-        @SuppressWarnings("unchecked")
-        Collection<Object> result = (Collection<Object>) kieSession.getObjects();
-
-        LOGGER.info("Facts Collection : {}", result);
-
-        List<Object> facts = null;
-        if (!result.isEmpty()) {
-            LOGGER.debug("{} Facts obtained from KieSession", result.size());
-            facts = Arrays.asList(result.toArray());
-        }
-
-        return facts;
-    }
 }

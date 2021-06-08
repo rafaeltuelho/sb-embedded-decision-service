@@ -7,7 +7,7 @@ public class DecisionRequest {
         return this.person;
     }
 
-    public void setDriver(Person person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 

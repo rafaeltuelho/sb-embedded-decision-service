@@ -1,12 +1,14 @@
 package com.redhat.demos.model;
 
-import org.kie.dmn.feel.lang.FEELProperty;
-
 public class Person {
     private String name;
     private Integer age;
     private String state;
     private String city;
+
+    public Person() {
+        
+    }
 
     public String getName() {
         return this.name;

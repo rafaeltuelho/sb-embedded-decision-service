@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping( { "/api/v1/decisions" } )
+@RequestMapping( { "/api/v1" } )
 public class DecisionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DecisionController.class);
     
@@ -25,25 +25,25 @@ public class DecisionController {
     @Autowired
     RulesService rs;
 
-    @GetMapping( "/scan" )
+    @GetMapping( "/assets/scan" )
 	public ResponseEntity<String> scan() {
         LOGGER.info("Scan kjar...");
 		ds.scanLatestKieBase();
         return ResponseEntity.ok().body("Scan initiated!");
 	}
 
-    @PostMapping( "/decision/post" )
+    @PostMapping( "/decisions/adult" )
 	public DecisionResponse decisionPost(@RequestBody DecisionRequest request) {
         LOGGER.info("Call decision model...");
         LOGGER.debug("DecisionRequest: " + request);
 		return ds.callDecision(request);
 	}
 
-    @PostMapping( "/rules/post" )
+    @PostMapping( "/rules/adult" )
 	public DecisionResponse rulesPost(@RequestBody DecisionRequest request) {
         LOGGER.info("Fire rules...");
         LOGGER.debug("DecisionRequest: " + request);
-		return rs.fireAllRules(request);
+		return rs.fireRules(request);
 	}
 
 }

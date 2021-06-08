@@ -17,18 +17,18 @@ public class DecisionApplication {
         SpringApplication.run(DecisionApplication.class, args);
     }
 
-    @Bean
-    public KieContainer kieContainer() {
-        return KieServices.Factory.get().getKieClasspathContainer();
-    }
+    // @Bean
+    // public KieContainer kieContainer() {
+    //     return KieServices.Factory.get().getKieClasspathContainer();
+    // }
 
-    @Bean
-    public KieSession kieSession() {
-        KieServices kieServices = KieServices.Factory.get();
-        KieContainer kContainer = kieServices.getKieClasspathContainer();
-        KieSession kieSession = kContainer.newKieSession(); //default stateful kSession
-        // StatelessKieSession statelessKieSession = kContainer.newStatelessKieSession("KSession2_2");
+    // @Bean
+    // public KieSession kieSession() {
+    //     KieServices kieServices = KieServices.Factory.get();
+    //     KieContainer kContainer = kieServices.getKieClasspathContainer();
+    //     KieSession kieSession = kContainer.newKieSession(); //default stateful kSession
+    //     // StatelessKieSession statelessKieSession = kContainer.newStatelessKieSession("KSession2_2");
 
-        return kieSession;
-    }
+    //     return kieSession;
+    // }
 }
