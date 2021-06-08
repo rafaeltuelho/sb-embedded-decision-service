@@ -14,6 +14,7 @@ import org.kie.api.builder.KieScanner;
 import org.kie.api.cdi.KReleaseId;
 import org.kie.api.cdi.KSession;
 import org.kie.api.command.Command;
+import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.ExecutionResults;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.ObjectFilter;
@@ -50,7 +51,7 @@ public class RulesService {
         List<Command<?>> cmds = new ArrayList<>();
         cmds.add(CommandFactory.newInsert(request.getPerson(), "person"));
         cmds.add(CommandFactory.newFireAllRules("firedRules"));
-        cmds.add(CommandFactory.newGetObjects( (obj) -> obj instanceof DecisionResponse, "decisionFacts"));
+        cmds.add(CommandFactory.newGetObjects(new ClassObjectFilter(DecisionResponse.class), "decisionFacts"));
 
         final long executionStart = System.currentTimeMillis();
         LOGGER.info("=================================== START {} ===================================", "DROOLS EXECUTION RULES");

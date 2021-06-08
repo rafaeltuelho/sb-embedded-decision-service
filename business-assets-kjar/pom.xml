@@ -64,6 +64,22 @@
       <artifactId>drools-compiler</artifactId>
       <scope>compile</scope>
     </dependency>
+    <!-- DMN -->
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-core</artifactId>
+      <!-- <scope>test</scope> -->
+    </dependency>    
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-feel</artifactId>
+      <!-- <scope>test</scope> -->
+    </dependency>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-api</artifactId>
+      <!-- <scope>test</scope> -->
+    </dependency>    
 
     <!-- Logging -->
     <dependency>
@@ -90,6 +106,16 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.1</version>
+      <!-- <scope>test</scope> -->
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-scenario-simulation-api</artifactId>
+      <!-- <scope>test</scope> -->
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-scenario-simulation-backend</artifactId>
       <!-- <scope>test</scope> -->
     </dependency>    
   </dependencies>
