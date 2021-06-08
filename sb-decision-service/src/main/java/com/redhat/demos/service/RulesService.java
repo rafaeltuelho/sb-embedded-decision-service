@@ -39,7 +39,7 @@ public class RulesService {
     private StatelessKieSession kieSession;
 
     // @KSession("stateful-session")
-    // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "1.0")
+    // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "2.0")
     // private KieSession kieSession2;
 
     public void scanLatestKieBase() {
