@@ -1,23 +1,21 @@
 package com.redhat.demos.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import com.redhat.demos.model.DecisionRequest;
 import com.redhat.demos.model.DecisionResponse;
-import com.redhat.demos.model.Person;
 
 import org.kie.api.builder.KieScanner;
+import org.kie.api.cdi.KContainer;
 import org.kie.api.cdi.KReleaseId;
 import org.kie.api.cdi.KSession;
 import org.kie.api.command.Command;
 import org.kie.api.runtime.ClassObjectFilter;
 import org.kie.api.runtime.ExecutionResults;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.ObjectFilter;
 import org.kie.api.runtime.StatelessKieSession;
 import org.kie.internal.command.CommandFactory;
 import org.slf4j.Logger;
@@ -31,12 +29,13 @@ public class RulesService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DecisionService.class);
     @Autowired 
     private ApplicationContext applicationContext;
-    
-    // @KSession("stateful-session")
-    // private KieSession kieSession;
 
     @KSession("stateless-session")
-    private StatelessKieSession kieSession;
+    private StatelessKieSession kieStatelessSession;
+
+    @KContainer
+    @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "1.0.0-SNAPSHOT")
+    private KieContainer kContainer;
 
     // @KSession("stateful-session")
     // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "2.0")
@@ -56,7 +55,7 @@ public class RulesService {
         final long executionStart = System.currentTimeMillis();
         LOGGER.info("=================================== START {} ===================================", "DROOLS EXECUTION RULES");
 
-        ExecutionResults results = kieSession.execute(CommandFactory.newBatchExecution(cmds));
+        ExecutionResults results = kieStatelessSession.execute(CommandFactory.newBatchExecution(cmds));
 
         LOGGER.info("{} rules fired in {} ms", results.getValue("firedRules"), (System.currentTimeMillis() - executionStart));
         LOGGER.info("==================================== END {} ====================================", "DROOLS EXECUTION RULES");
@@ -69,5 +68,26 @@ public class RulesService {
 
         return response;
     }
+
+    public DecisionResponse fireRulesOnStatefulSession(DecisionRequest request) {
+        KieSession kieStatefulSession = kContainer.newKieSession("stateful-session");
+
+        final long executionStart = System.currentTimeMillis();
+        LOGGER.info("=================================== START {} ===================================", "DROOLS EXECUTION RULES");
+        kieStatefulSession.insert(request.getPerson());
+        int firedRules = kieStatefulSession.fireAllRules(100);
+
+        LOGGER.info("{} rules fired in {} ms", firedRules, (System.currentTimeMillis() - executionStart));
+        LOGGER.info("==================================== END {} ====================================", "DROOLS EXECUTION RULES");
+
+        DecisionResponse response = new DecisionResponse();
+        Iterator<?> decisionFacts = kieStatefulSession.getObjects(new ClassObjectFilter(DecisionResponse.class)).iterator();
+        if (decisionFacts.hasNext())
+            response = (DecisionResponse)decisionFacts.next();
+        
+        kieStatefulSession.dispose();
+        return response;
+    }
+
 
 }

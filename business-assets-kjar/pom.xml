@@ -64,6 +64,10 @@
       <artifactId>drools-compiler</artifactId>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-model-compiler</artifactId>
+    </dependency>
     <!-- DMN -->
     <dependency>
       <groupId>org.kie</groupId>

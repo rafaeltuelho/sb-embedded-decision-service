@@ -43,7 +43,7 @@ public class DecisionController {
 	public DecisionResponse rulesPost(@RequestBody DecisionRequest request) {
         LOGGER.info("Fire rules...");
         LOGGER.debug("DecisionRequest: " + request);
-		return rs.fireRules(request);
+		return rs.fireRulesOnStatefulSession(request);
 	}
 
 }
