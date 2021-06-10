@@ -31,19 +31,28 @@ public class RulesService {
     private ApplicationContext applicationContext;
 
     @KSession("stateless-session")
-    private StatelessKieSession kieStatelessSession;
+    private StatelessKieSession kieStatelessSession;   
 
-    @KContainer
-    @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "1.0.0-SNAPSHOT")
-    private KieContainer kContainer;
+    // @KContainer
+    // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "1.0.0-SNAPSHOT")
+    // This gets injected by the Spring DI in cse you choose not to use the kie-spring annotations.
+    private final KieContainer kContainer;
 
     // @KSession("stateful-session")
     // @KReleaseId( groupId = "com.redhat.demos", artifactId = "business-assets-kjar", version = "2.0")
     // private KieSession kieSession2;
 
+    public RulesService(KieContainer kieContainer) {
+        this.kContainer = kieContainer;
+    }
+
     public void scanLatestKieBase() {
-        KieScanner releaseIdScanner = applicationContext.getBean("named-session#scanner", KieScanner.class);
-        releaseIdScanner.scanNow();        
+        // get the KieScanner reference from the Spring ApplicationContext
+        KieScanner kieScanner = applicationContext.getBean("named-session#scanner", KieScanner.class);
+        // to get direct from the Kie API...
+        // KieServices ks = KieServices.Factory.get();
+        // KieScanner kieScanner = ks.newKieScanner(kContainer);
+        kieScanner.scanNow();
     }
 
     public DecisionResponse fireRules(DecisionRequest request) {

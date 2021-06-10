@@ -65,11 +65,14 @@
       <artifactId>drools-compiler</artifactId>
       <scope>provided</scope>
     </dependency>
+    <!-- enable only to generate the executable model. It doesn't work when using kie-scanner. -->
+    <!--
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-model-compiler</artifactId>
       <scope>provided</scope>
     </dependency>
+    -->
     <!-- DMN -->
     <dependency>
       <groupId>org.kie</groupId>

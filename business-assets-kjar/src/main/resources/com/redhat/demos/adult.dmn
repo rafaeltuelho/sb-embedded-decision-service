@@ -27,7 +27,7 @@ false</dmn:allowedAnswers>
       <dmn:requiredInput href="#_49C072E2-D25A-4AF3-99F6-3DE254353875"/>
     </dmn:informationRequirement>
     <dmn:literalExpression id="_27E2C0C7-03B5-4D88-883C-07FAB9FE5D49">
-      <dmn:text>if Person.age &gt;= 18 then 
+      <dmn:text>if Person.age &gt;= 21 then 
    true 
 else 
    false</dmn:text>
@@ -48,7 +48,7 @@ else
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="237" y="206" width="100" height="50"/>
+        <dc:Bounds x="378" y="190" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
       <dmndi:DMNShape id="dmnshape-drg-_2418CF23-E20A-4599-BED8-A48E50DA493B" dmnElementRef="_2418CF23-E20A-4599-BED8-A48E50DA493B" isCollapsed="false">
@@ -57,12 +57,12 @@ else
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="237" y="72" width="100" height="50"/>
+        <dc:Bounds x="379" y="62" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="dmnedge-drg-_31F3B9C1-946A-4F15-B078-EE47680F36C9-AUTO-TARGET" dmnElementRef="_31F3B9C1-946A-4F15-B078-EE47680F36C9">
-        <di:waypoint x="287" y="231"/>
-        <di:waypoint x="287" y="122"/>
+        <di:waypoint x="428" y="215"/>
+        <di:waypoint x="429" y="112"/>
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>

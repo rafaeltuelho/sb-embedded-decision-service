@@ -36,11 +36,19 @@ public class DecisionService {
     @Value("${dmn.modelName}")
     private String modelName;
 
+    /**
+     * Trigger the kie-scanner
+     */
     public void scanLatestKieBase() {
         KieScanner releaseIdScanner = applicationContext.getBean("named-session#scanner", KieScanner.class);
         releaseIdScanner.scanNow();        
     }
 
+    /**
+     * Execute the DMN decisions
+     * @param request DecisionRequest
+     * @return DecisionResponse
+     */
     public DecisionResponse callDecision(DecisionRequest request) {
         LOGGER.info("KieSession: " + kieSession.getIdentifier());
         final DMNRuntime dmnRuntime = kieSession.getKieRuntime(DMNRuntime.class);
