@@ -7,6 +7,7 @@ import java.util.List;
 import com.redhat.demos.model.DecisionRequest;
 import com.redhat.demos.model.DecisionResponse;
 
+import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.cdi.KContainer;
 import org.kie.api.cdi.KReleaseId;
@@ -53,6 +54,7 @@ public class RulesService {
         // KieServices ks = KieServices.Factory.get();
         // KieScanner kieScanner = ks.newKieScanner(kContainer);
         kieScanner.scanNow();
+        // kieScanner.shutdown(); // make sure you shutdown the scanner if you got a new instance using KieServices.
     }
 
     public DecisionResponse fireRules(DecisionRequest request) {

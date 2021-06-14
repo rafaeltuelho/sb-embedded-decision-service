@@ -67,7 +67,7 @@ public class DecisionApplication {
     }
  
     private ReleaseId businessAssetsKJar(KieServices ks) {
-        return ks.newReleaseId("com.redhat.demos", "business-assets-kjar", "1.0.0-SNAPSHOT");
+        return ks.newReleaseId("com.redhat.demos", "business-assets-kjar", "1.0.0-SNAPSHOT"); // use LATEST as version if you wanna get the Latest using Maven strategy.
     }
  
     private KieServices kieServices() {

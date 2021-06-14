@@ -28,7 +28,7 @@ public class DecisionController {
     @GetMapping( "/assets/scan" )
 	public ResponseEntity<String> scan() {
         LOGGER.info("Scan kjar...");
-		ds.scanLatestKieBase();
+		rs.scanLatestKieBase();
         return ResponseEntity.ok().body("Scan initiated!");
 	}
 
