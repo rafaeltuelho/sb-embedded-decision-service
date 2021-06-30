@@ -1,0 +1,45 @@
+package org.acme;
+unit PersonService;
+
+import org.kie.kogito.rules.DataSource;
+import org.kie.kogito.rules.DataStream;
+
+declare Person
+    age: int
+    name: String
+    adult: boolean
+end
+
+declare PersonService extends RuleUnitData
+  persons: DataStream<Person>
+end
+
+rule isAdult
+when
+    $person: /persons[ age >=18 ]
+then
+    modify($person) {
+        setAdult(true);
+    };
+end
+
+rule nonAdult
+when
+    $person: /persons[ age <18 ]
+then
+    modify($person) {
+        setAdult(false);
+    };
+end
+
+query allPersons
+    $p: /persons
+end
+
+query findAdults
+    $p: /persons[ adult ]
+end
+
+query findNonAdults
+    $p: /persons[ !adult ]
+end

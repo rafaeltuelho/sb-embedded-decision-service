@@ -1,0 +1,76 @@
+package org.mortgages;
+unit MortgageRules;
+
+rule "Bankruptcy history"
+	salience 10
+	when
+    $a : /loanApplications[ applicantName: applicant ]
+    exists (/bankruptcy[ name == applicantName, yearOfOccurrence > 1990 || amountOwed > 100000 ])
+	then
+        // System.out.printf("Rule %s fired! %n", drools.getRule().getName());
+		$a.setApproved( false );
+		$a.setExplanation( "has been bankrupt" );
+		loanApplications.remove( $a );
+end
+
+rule "Underage"
+	salience 15
+	when
+    $a: /applicant[ applicantName : name, age < 21 ]
+    $application : /loanApplications[ applicant == applicantName ]
+	then
+        // System.out.printf("Rule %s fired! %n", drools.getRule().getName());
+		$application.setApproved( false );
+		$application.setExplanation( "Underage" );
+		loanApplications.remove( $a );
+end
+
+rule SmallDepositApprove when
+    $l: /loanApplications[ applicant.age >= 20, deposit < 1000, amount <= 2000 ]
+then
+    modify($l) { setApproved(true) };
+end
+
+rule SmallDepositReject when
+    $l: /loanApplications[ applicant.age >= 20, deposit < 1000, amount > 2000 ]
+then
+    modify($l) { setApproved(false) };
+end
+
+rule LargeDepositApprove when
+    $l: /loanApplications[ applicant.age >= 20, deposit >= 1000, amount <= maxAmount ]
+then
+    modify($l) { setApproved(true) };
+end
+
+rule LargeDepositReject when
+    $l: /loanApplications[ applicant.age >= 20, deposit >= 1000, amount > maxAmount ]
+then
+    modify($l) { setApproved(false) };
+end
+
+rule NotAdultApplication when
+    $l: /loanApplications[ applicant.age < 20 ]
+then
+    modify($l) { setApproved(false) };
+end
+
+// Queries
+query FindApproved
+    $l: /loanApplications[ approved ]
+end
+
+query FindNotApprovedIdAndAmount
+    /loanApplications[ !approved, $id: id, $amount : amount ]
+end
+
+rule AllAmounts
+when
+    accumulate ( $a : /loanApplications ; $sum : sum($a.amount))
+then
+    allAmounts.add(new AllAmounts($sum));
+end
+
+query FindAllApplicationAmounts
+    $a : /allAmounts
+end
