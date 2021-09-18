@@ -15,9 +15,15 @@
  */
 package org.mortgages;
 
+import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AllAmounts {
-    private Integer amounts;
+    private BigDecimal amounts;
 }

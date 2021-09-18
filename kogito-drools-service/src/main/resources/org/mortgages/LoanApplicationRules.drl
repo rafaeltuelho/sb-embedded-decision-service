@@ -4,7 +4,7 @@ unit MortgageRules;
 rule "Bankruptcy history"
 	salience 10
 	when
-    $a : /loanApplications[ applicantName: applicant ]
+    $a : /loanApplications[ applicantName: applicant.name ]
     exists (/bankruptcy[ name == applicantName, yearOfOccurrence > 1990 || amountOwed > 100000 ])
 	then
         // System.out.printf("Rule %s fired! %n", drools.getRule().getName());
